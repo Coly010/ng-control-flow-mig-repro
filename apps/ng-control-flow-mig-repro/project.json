@@ -1,0 +1,90 @@
+{
+  "name": "ng-control-flow-mig-repro",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "ng-control-flow-mig-repro",
+  "sourceRoot": "apps/ng-control-flow-mig-repro/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ng-control-flow-mig-repro",
+        "index": "apps/ng-control-flow-mig-repro/src/index.html",
+        "browser": "apps/ng-control-flow-mig-repro/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/ng-control-flow-mig-repro/tsconfig.app.json",
+        "assets": [
+          "apps/ng-control-flow-mig-repro/src/favicon.ico",
+          "apps/ng-control-flow-mig-repro/src/assets"
+        ],
+        "styles": ["apps/ng-control-flow-mig-repro/src/styles.css"],
+        "scripts": [],
+        "server": "apps/ng-control-flow-mig-repro/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/ng-control-flow-mig-repro/server.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "ng-control-flow-mig-repro:build:production"
+        },
+        "development": {
+          "buildTarget": "ng-control-flow-mig-repro:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "ng-control-flow-mig-repro:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/ng-control-flow-mig-repro/**/*.ts",
+          "apps/ng-control-flow-mig-repro/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/ng-control-flow-mig-repro/jest.config.ts"
+      }
+    }
+  }
+}
